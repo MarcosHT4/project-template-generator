@@ -59,7 +59,7 @@ def detect_objects(
     threshold: float = 0.5,
     file: UploadFile = File(...), 
     predictor: ObjectDetector = Depends(get_object_detector)
-):
+) -> Detection:
     results, _ = predict_uploadfile(predictor, file, threshold)
     
     return results

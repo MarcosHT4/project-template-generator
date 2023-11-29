@@ -14,10 +14,7 @@ class GeneralPrediction(BaseModel):
     pred_type: PredictionType
 
 class Detection(GeneralPrediction):
-    n_detections: int
-    boxes: list[list[int]]
-    labels: list[str]
-    confidences: list[float]
+    number_of_persons: int
 
 class ObjectDetector:
     def __init__(self) -> None:
@@ -28,15 +25,11 @@ class ObjectDetector:
         labels = [results.names[i] for i in results.boxes.cls.tolist()]
 
         boxes = [[int(v) for v in box] for box in results.boxes.xyxy.tolist()]
-        detection = Detection(
-            pred_type=PredictionType.object_detection,
-            n_detections=len(boxes),
-            boxes=boxes,
-            labels=labels,
-            confidences=results.boxes.conf.tolist()
-        )
+        
         # Return only the person count
 
         count = labels.count("person")
 
-        return count
+        detection = Detection(pred_type=PredictionType.object_detection, number_of_persons=count)
+
+        return detection
