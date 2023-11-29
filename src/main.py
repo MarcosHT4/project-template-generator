@@ -54,8 +54,8 @@ def predict_uploadfile(predictor, file, threshold):
     img_array = np.array(img_obj)
     return predictor.predict_image(img_array, threshold), img_array
 
-@app.post("/objects")
-def detect_objects(
+@app.post("/count_people")
+def count_people(
     threshold: float = 0.5,
     file: UploadFile = File(...), 
     predictor: ObjectDetector = Depends(get_object_detector)
