@@ -5,4 +5,6 @@ openai
 langchain
 python-dotenv
 ruff
+opencv-python-headless
 ultralytics
+python-multipart
